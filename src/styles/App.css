@@ -1,0 +1,118 @@
+/* src/styles/App.css */
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f2f5; /* Couleur de fond plus douce */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.app {
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+h1 {
+  color: #333;
+  font-size: 2.5rem;
+  margin-bottom: 25px;
+}
+
+.polynomial-form {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.polynomial-form input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.polynomial-form input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+.polynomial-form button {
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.polynomial-form button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+}
+
+.polynomial-form button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.polynomial-form button[type="button"] {
+  background-color: #f44336; /* Rouge pour Effacer */
+  color: white;
+}
+
+.polynomial-form button[type="button"]:hover {
+  background-color: #c82333;
+}
+
+.results {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.results h2 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #343a40;
+}
+
+.results p {
+  margin: 10px 0;
+  font-size: 1rem;
+  color: #495057;
+}
+
+.results ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.results ul li {
+  background-color: #e9ecef;
+  padding: 8px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+}
+
+.error {
+  color: #dc3545;
+  font-weight: bold;
+  margin-top: 10px;
+  font-size: 1rem;
+}
