@@ -1,87 +1,88 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from './AuthContext'; // Importing the AuthContext hook
+import '../styles/Login.css';
 
-function LoginForm({ onLogin }) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const Login = () => {
   const [email, setEmail] = useState('');
-  const [department, setDepartment] = useState(''); // Nouveau champ pour "Calculator"
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [isRegistering, setIsRegistering] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
-  const handleLoginSubmit = async (e) => {
+  const { login } = useAuth(); // Use the login function from AuthContext
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
     e.preventDefault();
+
     try {
-      const response = await axios.post('http://localhost:8082/api/calculators/login', {
-        username,
-        password,
-      });
-      if (response.status === 200) {
-        onLogin();
+      const response = await axios.post('http://localhost:8082/api/calculators/login', { email, password });
+
+      if (response.status === 200 || response.status === 201) {
+        const token = response.data.token;
+
+        // Use the login function to store the token
+        login(token);
+
+        setSuccessMessage('Connexion réussie!');
+        setError('');
+        alert('Connexion réussie!');
+        
+        // Redirect to the main page after successful login
+        navigate('/polynomial-form');
+      } else {
+        setError('Email ou mot de passe incorrect.');
       }
-    } catch (err) {
-      setError('Nom d’utilisateur ou mot de passe incorrect.');
+    } catch (error) {
+      setSuccessMessage('');
+      setError(error.response ? error.response.data.message : 'Erreur lors de la connexion');
     }
   };
 
-  const handleRegisterSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:8082/api/users/register', {
-        username,
-        email,
-        password,
-        department, // Inclure le département pour le "Calculator"
-        isCalculator: true, // Indiquer que c'est un Calculator
-      });
-      if (response.status === 201) {
-        setError('Inscription réussie. Veuillez vérifier votre e-mail.');
-      }
-    } catch (err) {
-      setError('Erreur lors de l’inscription.');
-    }
+  const handleForgotPassword = () => {
+    navigate('/forgot-password'); // Navigate to /forgot-password
+  };
+
+  const handleSignUp = () => {
+    navigate('/register'); // Navigate to /register
   };
 
   return (
-    <div className="login-form">
-      <h2>{isRegistering ? 'Inscription' : 'Connexion'}</h2>
-      {error && <p className="error">{error}</p>}
-      <form onSubmit={isRegistering ? handleRegisterSubmit : handleLoginSubmit}>
+    <div className="form-container">
+      <p className="title">Welcome back</p>
+      <form className="form" onSubmit={handleLogin}>
         <input
-          type="text"
-          placeholder="Nom d'utilisateur"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          type="email"
+          className="input"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
         />
-        {isRegistering && (
-          <>
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Département"
-              value={department}
-              onChange={(e) => setDepartment(e.target.value)}
-            />
-          </>
-        )}
         <input
           type="password"
-          placeholder="Mot de passe"
+          className="input"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
-        <button type="submit">{isRegistering ? 'S’inscrire' : 'Se connecter'}</button>
+        <p className="page-link" onClick={handleForgotPassword} style={{ cursor: 'pointer' }}>
+          <span className="page-link-label">Forgot Password?</span>
+        </p>
+        {successMessage && <div style={{ color: 'green' }}>{successMessage}</div>}
+        {error && <div style={{ color: 'red' }}>{error}</div>}
+        <button className="form-btn" type="submit">Log in</button>
       </form>
-      <button onClick={() => setIsRegistering(!isRegistering)}>
-        {isRegistering ? 'Déjà un compte ? Se connecter' : 'Pas de compte ? S’inscrire'}
-      </button>
+      <p className="sign-up-label">
+        Don't have an account?{' '}
+        <span className="sign-up-link" onClick={handleSignUp}>
+          Sign up
+        </span>
+      </p>
     </div>
   );
-}
+};
 
-export default LoginForm;
+export default Login;
