@@ -15,21 +15,28 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await axios.post('http://localhost:8082/api/calculators/login', { email, password });
-
+  
       if (response.status === 200 || response.status === 201) {
         const token = response.data.token;
+        const userId = response.data.userId; // Assurez-vous que le backend retourne l'userId
+  
+        // Stocker l'userId dans localStorage
+        localStorage.setItem('token', token);
+      localStorage.setItem('userId', userId);
 
-        // Use the login function to store the token
-        login(token);
+      console.log('Token:', token);
 
+        // Vérifier si l'ID est bien stocké
+        console.log('User ID stored in localStorage:', localStorage.getItem('userId'));
+  
         setSuccessMessage('Connexion réussie!');
         setError('');
         alert('Connexion réussie!');
         
-        // Redirect to the main page after successful login
+        // Rediriger après connexion réussie
         navigate('/polynomial-form');
       } else {
         setError('Email ou mot de passe incorrect.');
@@ -39,6 +46,7 @@ const Login = () => {
       setError(error.response ? error.response.data.message : 'Erreur lors de la connexion');
     }
   };
+  
 
   const handleForgotPassword = () => {
     navigate('/forgot-password'); // Navigate to /forgot-password

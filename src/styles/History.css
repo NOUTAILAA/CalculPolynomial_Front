@@ -1,0 +1,81 @@
+/* Conteneur principal */
+.history-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background: linear-gradient(to right, #e3f2fd, #bbdefb);
+    font-family: 'Arial', sans-serif;
+    border-radius: 10px;
+
+        max-height: 80vh; /* Hauteur maximale à 80% de la fenêtre */
+        overflow-y: auto; /* Activer un défilement vertical */
+      
+  }
+  
+  /* Titre principal */
+  .history-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #1a237e;
+  }
+  
+  /* Conteneur des cartes */
+  .history-card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  /* Style des cartes */
+  .history-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    overflow: hidden;
+  }
+  
+  .history-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* En-tête de la carte */
+  .card-header {
+    background-color: #1a73e8;
+    color: white;
+    padding: 15px;
+    font-size: 1.3rem;
+    text-align: center;
+  }
+  
+  /* Corps de la carte */
+  .card-body {
+    padding: 15px;
+  }
+  
+  .card-body p {
+    margin: 10px 0;
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  
+  /* Texte d'erreur */
+  .error {
+    text-align: center;
+    color: red;
+    font-size: 1.2rem;
+    margin-top: 20px;
+  }
+  
+  /* Message si aucun historique */
+  .no-history {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #555;
+    margin-top: 20px;
+  }
+  

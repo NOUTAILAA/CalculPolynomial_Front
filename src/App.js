@@ -5,7 +5,7 @@ import Login from './components/LoginForm';
 import Register from './components/Register';
 import ForgotPassword from './components/Forgot-password';
 import PolynomialForm from './components/PolynomialForm'; // Assurez-vous d'importer PolynomialForm
-
+import History from './components/History';
 const App = () => {
     return (
         <AuthProvider> {/* Envelopper l'application avec le provider pour accéder au contexte */}
@@ -18,6 +18,8 @@ const App = () => {
                         <Route path="/register" element={<Register />} />
                         <Route path="/polynomial-form" element={<PolynomialForm />} />
                         <Route path="/forgot-password" element={<ForgotPassword />} />
+                        <Route path="/history" element={<History />} />
+
                     </Routes>
             </Router>
         </AuthProvider> // Fermer le provider ici
