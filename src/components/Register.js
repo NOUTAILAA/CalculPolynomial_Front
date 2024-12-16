@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../styles/Login.css'; // Réutiliser les styles existants
+import '../styles/Register.css'; // Import des styles corrigés
 
 const Register = () => {
     const [username, setUsername] = useState('');
@@ -26,12 +26,12 @@ const Register = () => {
     };
 
     return (
-        <div className="form-container">
-            <p className="title">Create an Account</p>
-            <form className="form" onSubmit={handleRegister}>
+        <div className="form-containerr">
+            <p className="titlee">Create an Account</p>
+            <form className="formm" onSubmit={handleRegister}>
                 <input
-                    type="text"
-                    className="input"
+                    type="textt"
+                    className="inputt"
                     placeholder="Username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -39,7 +39,7 @@ const Register = () => {
                 />
                 <input
                     type="email"
-                    className="input"
+                    className="inputt"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -53,11 +53,10 @@ const Register = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
-                {error && <div style={{ color: 'red', marginTop: '10px' }}>{error}</div>}
-                {success && <div style={{ color: 'green', marginTop: '10px' }}>{success}</div>}
+                {error && <div className="error-message">{error}</div>}
+                {success && <div className="success-message">{success}</div>}
                 <button className="form-btn" type="submit">Sign up</button>
             </form>
-       
         </div>
     );
 };

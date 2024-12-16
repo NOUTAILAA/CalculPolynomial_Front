@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useAuth } from './AuthContext';  // Importer le hook pour accéder au contexte
+import { useAuth } from './AuthContext'; // Importer le hook pour accéder au contexte
+import '../styles/PolynomialForm.css'; // Importer le fichier CSS
 
 function PolynomialForm() {
   const { token } = useAuth(); // Récupérer le token depuis le contexte
   const [expression, setExpression] = useState('');
-  const [variable, setVariable] = useState('x');
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
 
@@ -33,26 +33,14 @@ function PolynomialForm() {
       // Si la réponse est correcte, afficher les résultats
       setResult(response.data);
     } catch (error) {
-      setError('Erreur lors du traitement du polynôme');
+      setError('Polynome irrecevable');
     }
   };
 
   return (
-    <div>
+    <div className="polynomial-form-container">
       <h1>Calcul des racines de polynômes</h1>
       <form className="polynomial-form">
-        <div style={{ marginBottom: '10px' }}>
-          <label>
-            Variable :
-            <input
-              type="text"
-              value={variable}
-              onChange={(e) => setVariable(e.target.value || 'x')}
-              placeholder="x"
-              style={{ marginLeft: '10px', width: '50px' }}
-            />
-          </label>
-        </div>
         <input
           type="text"
           value={expression}
@@ -60,28 +48,39 @@ function PolynomialForm() {
           placeholder="Entrez une expression polynomiale"
         />
         <div>
-          <button type="button" onClick={() => handleSubmit('sympy')} style={{ marginLeft: '10px' }}>
+          <button type="button" onClick={() => handleSubmit('sympy')}>
             SymPy
           </button>
-          <button type="button" onClick={() => handleSubmit('numpy')} style={{ marginLeft: '10px' }}>
+          <button type="button" onClick={() => handleSubmit('newton')}>
+            Newton Raphson
+          </button>
+          <button type="button" onClick={() => handleSubmit('numpy')}>
             NumPy
           </button>
-          <button type="button" onClick={() => handleSubmit('newton')} style={{ marginLeft: '10px' }}>
-            Newton
-          </button>
+          
         </div>
       </form>
 
-      {error && <div style={{ color: 'red' }}>{error}</div>}
+      {error && <div className="error">{error}</div>}
 
       {result && (
-        <div>
-          <h3>Résultats :</h3>
-          <p><strong>Expression simplifiée :</strong> {result.simplifiedExpression}</p>
-          <p><strong>Expression factorisée :</strong> {result.factoredExpression}</p>
-          <p><strong>Racines :</strong> {result.roots.join(', ')}</p>
-        </div>
-      )}
+  <div className="result-container">
+    <h3>Résultats :</h3>
+    <p><strong>Expression simplifiée :</strong> {result.simplifiedExpression}</p>
+    <p><strong>Expression factorisée :</strong> {result.factoredExpression}</p>
+    <div>
+      <strong>Racines :</strong>
+      <div className="roots-container">
+        {result.roots.map((root, index) => (
+          <div key={index} className="root-item">
+            {root}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
 }
