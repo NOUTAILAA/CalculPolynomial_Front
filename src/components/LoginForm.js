@@ -17,37 +17,35 @@ const Login = () => {
     e.preventDefault();
   
     try {
-      const response = await axios.post('http://localhost:8082/api/calculators/login', { email, password });
+      const response = await axios.post('http://localhost:8082/api/users/login', { email, password });
   
-      if (response.status === 200 || response.status === 201) {
-        const token = response.data.token;
-        const userId = response.data.userId; // Assurez-vous que le backend retourne l'userId
+      if (response.status === 200) {
+        const { token, userId, scope } = response.data;
   
-        // Stocker l'userId dans localStorage
+        // Stocker le token et userId
         localStorage.setItem('token', token);
-      localStorage.setItem('userId', userId);
-
-      console.log('Token:', token);
-
-        // Vérifier si l'ID est bien stocké
-        console.log('User ID stored in localStorage:', localStorage.getItem('userId'));
+        localStorage.setItem('userId', userId);
+  
+        console.log('Token:', token);
+        console.log('Rôle récupéré (scope):', scope);
   
         setSuccessMessage('Connexion réussie!');
         setError('');
-        alert('Connexion réussie!');
-        
-        // Rediriger après connexion réussie
-        navigate('/polynomial-form');
-      } else {
-        setError('Email ou mot de passe incorrect.');
+  
+        // Rediriger ou afficher une alerte en fonction du rôle
+        if (scope.includes('ADMIN')) {
+          alert('Hello Admin');
+        } else if (scope.includes('CALCULATOR')) {
+          navigate('/polynomial-form');
+        } else {
+          console.log('Rôle non reconnu.');
+        }
       }
     } catch (error) {
-      setSuccessMessage('');
       setError(error.response ? error.response.data.message : 'Erreur lors de la connexion');
     }
   };
   
-
   const handleForgotPassword = () => {
     navigate('/forgot-password'); // Navigate to /forgot-password
   };

@@ -6,6 +6,9 @@ import Register from './components/Register';
 import ForgotPassword from './components/Forgot-password';
 import PolynomialForm from './components/PolynomialForm'; // Assurez-vous d'importer PolynomialForm
 import History from './components/History';
+import Profile from './components/Profile';
+import CalculatorCrud from './components/CalculatorCrud';
+
 const App = () => {
     return (
         <AuthProvider> {/* Envelopper l'application avec le provider pour accéder au contexte */}
@@ -13,6 +16,8 @@ const App = () => {
    
                     <Routes>
                     <Route path="/" element={<Login />} />
+                    <Route path="/profile/:id" element={<Profile />} />
+                    <Route path="/manage-calculators" element={<CalculatorCrud />} />
 
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
