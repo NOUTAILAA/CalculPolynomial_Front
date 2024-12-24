@@ -1,8 +1,11 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders the welcome message', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
+  
+  // Adaptez le texte recherché à ce qui est affiché dans le DOM
+  const linkElement = screen.getByText(/welcome back/i);
   expect(linkElement).toBeInTheDocument();
 });
