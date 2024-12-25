@@ -84,3 +84,55 @@ body {
     font-size: 12px;
     text-align: center;
 }
+
+
+
+
+
+
+/* Bouton Retour */
+.back-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 20px;
+    background-color: #dcdcdc;
+    color: #333;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transition: background-color 0.3s, transform 0.2s;
+    width: fit-content;
+}
+
+.back-button:hover {
+    background-color: #c0c0c0;
+    transform: scale(1.05);
+}
+
+.back-svg {
+    width: 20px;
+    height: 20px;
+    stroke: #333;
+    transition: stroke 0.3s;
+}
+
+.back-button:hover .back-svg {
+    stroke: #000;
+}
+
+.back-button span {
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Titre */
+.titlee {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
