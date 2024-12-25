@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "../styles/CalculatorCrud.css"; // Importation du fichier CSS
+import "../styles/CalculatorCrud.css"; // CSS amélioré
 
 const CalculatorCrud = () => {
-  const [calculators, setCalculators] = useState([]);
+  const [calculators, setCalculators] = useState([]); // Liste des utilisateurs
+  const [polynomials, setPolynomials] = useState([]); // Polynômes d'un utilisateur
+  const [selectedUser, setSelectedUser] = useState(null); // Utilisateur sélectionné
   const [form, setForm] = useState({ username: "", email: "", telephone: "" });
   const [editingId, setEditingId] = useState(null);
 
-  // Charger tous les calculateurs
+  // Charger tous les utilisateurs
   const fetchCalculators = async () => {
     try {
       const response = await axios.get("http://localhost:8082/api/calculators");
@@ -21,7 +23,18 @@ const CalculatorCrud = () => {
     fetchCalculators();
   }, []);
 
-  // Ajouter ou mettre à jour un calculateur
+  // Charger les polynômes d'un utilisateur
+  const fetchPolynomials = async (userId) => {
+    try {
+      const response = await axios.get(`http://localhost:8082/api/users/${userId}/polynomials`);
+      setPolynomials(response.data); // Mettre à jour l'état avec les polynômes
+      setSelectedUser(userId);
+    } catch (error) {
+      console.error("Erreur lors du chargement des polynômes :", error);
+    }
+  };
+
+  // Ajouter ou mettre à jour un utilisateur
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -38,7 +51,7 @@ const CalculatorCrud = () => {
     }
   };
 
-  // Supprimer un calculateur
+  // Supprimer un utilisateur
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:8082/api/calculators/${id}`);
@@ -100,6 +113,9 @@ const CalculatorCrud = () => {
               <td>{calc.email}</td>
               <td>{calc.telephone}</td>
               <td>
+                <button className="crud-button view-btn" onClick={() => fetchPolynomials(calc.id)}>
+                  Voir Calculs
+                </button>
                 <button className="crud-button edit-btn" onClick={() => handleEdit(calc)}>
                   Modifier
                 </button>
@@ -111,6 +127,38 @@ const CalculatorCrud = () => {
           ))}
         </tbody>
       </table>
+
+      {selectedUser && (
+        <div className="polynomial-section">
+          <h3>Calculs de l'utilisateur {}</h3>
+          {polynomials.length > 0 ? (
+            <table className="crud-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Expression Simplifiée</th>
+                  <th>Expression Factorisée</th>
+                  <th>Racines</th>
+                </tr>
+              </thead>
+              <tbody>
+  {polynomials.map((poly) => (
+    <tr key={poly.id}>
+      <td>{poly.id}</td>
+      <td>{poly.simplifiedExpression}</td>
+      <td>{poly.factoredExpression}</td>
+      <td>{poly.roots}</td> {/* Afficher les racines directement comme une chaîne */} 
+    </tr>
+  ))}
+</tbody>
+
+
+            </table>
+          ) : (
+            <p>Aucun calcul trouvé pour cet utilisateur.</p>
+          )}
+        </div>
+      )}
     </div>
   );
 };
