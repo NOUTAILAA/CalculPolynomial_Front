@@ -1,11 +1,20 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
+import { AuthProvider } from './components/AuthContext';
+import { act } from 'react-dom/test-utils';
 
-test('renders the welcome message', () => {
-  render(<App />);
-  
-  // Adaptez le texte recherché à ce qui est affiché dans le DOM
-  const linkElement = screen.getByText(/welcome back/i);
-  expect(linkElement).toBeInTheDocument();
+describe('Login Component', () => {
+  test('renders the welcome message', async () => {
+    await act(async () => {
+      render(
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      );
+    });
+
+    const linkElement = screen.getByText(/welcome back/i);
+    expect(linkElement).toBeInTheDocument();  // Vérification avec jest-dom
+  });
 });

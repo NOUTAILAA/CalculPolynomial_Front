@@ -3,5 +3,5 @@ projectKey=SONARPROJECTREACT
 serverUrl=https://sonarcloud.io
 serverVersion=8.0.0.58741
 dashboardUrl=https://sonarcloud.io/dashboard?id=SONARPROJECTREACT
-ceTaskId=AZP3wuakDiKDBw3B3X4Z
-ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AZP3wuakDiKDBw3B3X4Z
+ceTaskId=AZP32i0UCBEeSFnUMAvM
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AZP32i0UCBEeSFnUMAvM

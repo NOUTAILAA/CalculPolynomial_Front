@@ -50,5 +50,19 @@
     "jest": "^29.6.0",
     "jest-environment-jsdom": "^29.6.0",
     "jest-sonar": "^0.2.16"
-  }
+  },
+  "jest": {
+  "setupFilesAfterEnv": [
+    "<rootDir>/src/setupTests.js"
+  ],
+  "testEnvironment": "jsdom",
+  "moduleNameMapper": {
+    "\\.(css|scss|sass)$": "identity-obj-proxy"
+  },
+
+  "coverageDirectory": "coverage",
+  "coverageReporters": ["text", "lcov"]
+}
+
+
 }

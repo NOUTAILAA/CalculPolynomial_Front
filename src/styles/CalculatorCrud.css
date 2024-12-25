@@ -1,97 +1,149 @@
-/* Container principal */
+/* Conteneur principal */
 .crud-container {
-    max-width: 1000px;
-    margin: 30px auto;
-    padding: 20px;
-    background: #f8f9fa;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    font-family: Arial, sans-serif;
-  }
-  
-  h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  /* Formulaire */
-  .crud-form {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .crud-form input {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  .crud-button {
-    padding: 10px 15px;
-    border: none;
-    color: #fff;
-    font-size: 14px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  
-  .submit-btn {
-    background-color: #28a745;
-  }
-  
-  .submit-btn:hover {
-    background-color: #218838;
-  }
-  
-  /* Table stylée */
-  .crud-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  }
-  
-  .crud-table th,
-  .crud-table td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: center;
-  }
-  
-  .crud-table th {
-    background-color: #007bff;
-    color: #fff;
-    font-weight: bold;
-  }
-  
-  .crud-table tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  .crud-table tr:hover {
-    background-color: #e9ecef;
-  }
-  
-  .edit-btn {
-    background-color: #ffc107;
-    margin-right: 5px;
-  }
-  
-  .edit-btn:hover {
-    background-color: #e0a800;
-  }
-  
-  .delete-btn {
-    background-color: #dc3545;
-  }
-  
-  .delete-btn:hover {
-    background-color: #c82333;
-  }
-  
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Titre principal */
+h2 {
+  text-align: center;
+  color: #3a3a3a;
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Formulaire */
+.crud-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 30px;
+  justify-content: center;
+}
+
+.crud-form input {
+  flex: 1 1 calc(33.33% - 20px);
+  padding: 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 16px;
+  background: #f9f9f9;
+  transition: all 0.3s ease;
+}
+
+.crud-form input:focus {
+  border-color: #6c63ff;
+  outline: none;
+  background: #ffffff;
+  box-shadow: 0 5px 15px rgba(108, 99, 255, 0.2);
+}
+
+/* Bouton principal */
+.crud-button {
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.submit-btn {
+  background-color: #6c63ff;
+}
+
+.submit-btn:hover {
+  background-color: #514cc1;
+  transform: translateY(-2px);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+/* Table */
+.crud-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.crud-table thead {
+  background: linear-gradient(135deg, #6c63ff, #514cc1);
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.crud-table th {
+  padding: 15px;
+  text-align: left;
+  font-weight: bold;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.crud-table td {
+  padding: 15px;
+  border-bottom: 1px solid #eeeeee;
+  font-size: 15px;
+  color: #555555;
+}
+
+.crud-table tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.crud-table tr:hover {
+  background: #f1f1f1;
+}
+
+.crud-table td:last-child {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* Boutons d'action */
+.edit-btn {
+  background-color: #ffbf00;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.edit-btn:hover {
+  background-color: #e6aa00;
+  transform: translateY(-2px);
+}
+
+.delete-btn {
+  background-color: #ff4d4f;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.delete-btn:hover {
+  background-color: #d9363e;
+  transform: translateY(-2px);
+}
