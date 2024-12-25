@@ -34,7 +34,7 @@ const Login = () => {
   
         // Rediriger ou afficher une alerte en fonction du rôle
         if (scope.includes('ADMIN')) {
-          alert('Hello Admin');
+          navigate('/manage-calculators');
         } else if (scope.includes('CALCULATOR')) {
           navigate('/polynomial-form');
         } else {
