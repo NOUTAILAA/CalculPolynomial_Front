@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import pour la navigation
 import axios from "axios";
-import "../styles/CalculatorCrud.css"; // CSS amélioré
+import "../styles/CalculatorCrud.css";
 
 const CalculatorCrud = () => {
   const [calculators, setCalculators] = useState([]); // Liste des utilisateurs
@@ -8,6 +9,7 @@ const CalculatorCrud = () => {
   const [selectedUser, setSelectedUser] = useState(null); // Utilisateur sélectionné
   const [form, setForm] = useState({ username: "", email: "", telephone: "" });
   const [editingId, setEditingId] = useState(null);
+  const navigate = useNavigate(); // Utilisez useNavigate pour rediriger
 
   // Charger tous les utilisateurs
   const fetchCalculators = async () => {
@@ -22,17 +24,6 @@ const CalculatorCrud = () => {
   useEffect(() => {
     fetchCalculators();
   }, []);
-
-  // Charger les polynômes d'un utilisateur
-  const fetchPolynomials = async (userId) => {
-    try {
-      const response = await axios.get(`http://localhost:8082/api/users/${userId}/polynomials`);
-      setPolynomials(response.data); // Mettre à jour l'état avec les polynômes
-      setSelectedUser(userId);
-    } catch (error) {
-      console.error("Erreur lors du chargement des polynômes :", error);
-    }
-  };
 
   // Ajouter ou mettre à jour un utilisateur
   const handleSubmit = async (e) => {
@@ -113,15 +104,16 @@ const CalculatorCrud = () => {
               <td>{calc.email}</td>
               <td>{calc.telephone}</td>
               <td>
-                <button className="crud-button view-btn" onClick={() => fetchPolynomials(calc.id)}>
+                <button
+                  className="crud-button view-btn"
+                  onClick={() => navigate(`/user/${calc.id}`)} // Redirige vers la page des polynômes
+                >
                   Voir Calculs
                 </button>
                 <button className="crud-button edit-btn" onClick={() => handleEdit(calc)}>
                   Modifier
                 </button>
-                <button className="crud-button delete-btn" onClick={() => handleDelete(calc.id)}>
-                  Supprimer
-                </button>
+              
               </td>
             </tr>
           ))}

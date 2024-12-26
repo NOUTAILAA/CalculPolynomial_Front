@@ -8,7 +8,7 @@ import PolynomialForm from './components/PolynomialForm'; // Assurez-vous d'impo
 import History from './components/History';
 import Profile from './components/Profile';
 import CalculatorCrud from './components/CalculatorCrud';
-
+import UserPolynomials from "./components/UserPolynomials"; // Nouveau composant pour les polynômes
 const App = () => {
     return (
         <AuthProvider> {/* Envelopper l'application avec le provider pour accéder au contexte */}
@@ -18,6 +18,7 @@ const App = () => {
                     <Route path="/" element={<Login />} />
                     <Route path="/profile/:id" element={<Profile />} />
                     <Route path="/manage-calculators" element={<CalculatorCrud />} />
+                    <Route path="/user/:userId" element={<UserPolynomials />} />
 
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
