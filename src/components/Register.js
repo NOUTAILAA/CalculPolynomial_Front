@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Import pour la navigation
+
 import '../styles/Register.css'; // Import des styles corrigés
 
 const Register = () => {
@@ -8,7 +10,11 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const navigate = useNavigate(); // Initialisation de useNavigate
 
+    const handleGoToLogin = () => {
+        navigate('/login'); // Navigation vers /login
+    };
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
@@ -27,6 +33,21 @@ const Register = () => {
 
     return (
         <div className="form-containerr">
+         <div className="back-button" onClick={handleGoToLogin}>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="back-svg"
+                >
+                    <polyline points="15 18 9 12 15 6" />
+                    <path d="M19 12H9" />
+                </svg>
+            </div>
             <p className="titlee">Create an Account</p>
             <form className="formm" onSubmit={handleRegister}>
                 <input
