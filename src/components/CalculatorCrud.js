@@ -111,9 +111,7 @@ const CalculatorCrud = () => {
                 <button className="crud-button edit-btn" onClick={() => handleEdit(calc)}>
                   Modifier
                 </button>
-                <button className="crud-button delete-btn" onClick={() => handleDelete(calc.id)}>
-                  Supprimer
-                </button>
+              
               </td>
             </tr>
           ))}
