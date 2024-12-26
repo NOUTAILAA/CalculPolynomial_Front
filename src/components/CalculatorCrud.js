@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import pour la navigation
 import axios from "axios";
-import "../styles/CalculatorCrud.css"; // Importation du fichier CSS
+import "../styles/CalculatorCrud.css";
 
 const CalculatorCrud = () => {
   const [calculators, setCalculators] = useState([]);
   const [form, setForm] = useState({ username: "", email: "", telephone: "" });
   const [editingId, setEditingId] = useState(null);
+  const navigate = useNavigate(); // Utilisez useNavigate pour rediriger
 
-  // Charger tous les calculateurs
+  // Charger tous les utilisateurs
   const fetchCalculators = async () => {
     try {
       const response = await axios.get("http://localhost:8082/api/calculators");
@@ -21,7 +23,7 @@ const CalculatorCrud = () => {
     fetchCalculators();
   }, []);
 
-  // Ajouter ou mettre à jour un calculateur
+  // Ajouter ou mettre à jour un utilisateur
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -38,7 +40,7 @@ const CalculatorCrud = () => {
     }
   };
 
-  // Supprimer un calculateur
+  // Supprimer un utilisateur
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:8082/api/calculators/${id}`);
@@ -100,12 +102,16 @@ const CalculatorCrud = () => {
               <td>{calc.email}</td>
               <td>{calc.telephone}</td>
               <td>
+                <button
+                  className="crud-button view-btn"
+                  onClick={() => navigate(`/user/${calc.id}`)} // Redirige vers la page des polynômes
+                >
+                  Voir Calculs
+                </button>
                 <button className="crud-button edit-btn" onClick={() => handleEdit(calc)}>
                   Modifier
                 </button>
-                <button className="crud-button delete-btn" onClick={() => handleDelete(calc.id)}>
-                  Supprimer
-                </button>
+              
               </td>
             </tr>
           ))}
