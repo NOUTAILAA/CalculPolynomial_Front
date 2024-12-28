@@ -106,7 +106,7 @@ const CalculatorCrud = () => {
                   className="crud-button view-btn"
                   onClick={() => navigate(`/user/${calc.id}`)} // Redirige vers la page des polynômes
                 >
-                  Voir Calculs
+                  Voir les Calculs
                 </button>
                 <button className="crud-button edit-btn" onClick={() => handleEdit(calc)}>
                   Modifier
