@@ -76,7 +76,7 @@ const CalculatorCrud = () => {
         />
         <input
           type="text"
-          placeholder="Téléphone"
+          placeholder="Password"
           value={form.password}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
         />
