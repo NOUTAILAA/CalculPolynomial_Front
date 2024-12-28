@@ -28,7 +28,7 @@ const CalculatorCrud = () => {
     e.preventDefault();
     try {
       if (editingId) {
-        await axios.put(http://localhost:8082/api/calculators/${editingId}, form);
+        await axios.put(`http://localhost:8082/api/calculators/${editingId}`, form);
       } else {
         await axios.post("http://localhost:8082/api/calculators/register", form);
       }
@@ -43,7 +43,7 @@ const CalculatorCrud = () => {
   // Supprimer un utilisateur
   const handleDelete = async (id) => {
     try {
-      await axios.delete(http://localhost:8082/api/calculators/${id});
+      await axios.delete(`http://localhost:8082/api/calculators/${id}`);
       fetchCalculators();
     } catch (error) {
       console.error("Erreur lors de la suppression :", error);
@@ -104,7 +104,7 @@ const CalculatorCrud = () => {
               <td>
                 <button
                   className="crud-button view-btn"
-                  onClick={() => navigate(/user/${calc.id})} // Redirige vers la page des polynômes
+                  onClick={() => navigate(`/user/${calc.id}`)} // Redirige vers la page des polynômes
                 >
                   Voir Calculs
                 </button>
