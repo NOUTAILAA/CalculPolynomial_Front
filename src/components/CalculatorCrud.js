@@ -4,10 +4,8 @@ import axios from "axios";
 import "../styles/CalculatorCrud.css";
 
 const CalculatorCrud = () => {
-  const [calculators, setCalculators] = useState([]); // Liste des utilisateurs
-  const [polynomials, setPolynomials] = useState([]); // Polynômes d'un utilisateur
-  const [selectedUser, setSelectedUser] = useState(null); // Utilisateur sélectionné
-  const [form, setForm] = useState({ username: "", email: "", telephone: "" });
+  const [calculators, setCalculators] = useState([]);
+  const [form, setForm] = useState({ username: "", email: "",password: "" });
   const [editingId, setEditingId] = useState(null);
   const navigate = useNavigate(); // Utilisez useNavigate pour rediriger
 
@@ -30,12 +28,12 @@ const CalculatorCrud = () => {
     e.preventDefault();
     try {
       if (editingId) {
-        await axios.put(`http://localhost:8082/api/calculators/${editingId}`, form);
+        await axios.put(http://localhost:8082/api/calculators/${editingId}, form);
       } else {
         await axios.post("http://localhost:8082/api/calculators/register", form);
       }
       fetchCalculators();
-      setForm({ username: "", email: "", telephone: "" });
+      setForm({ username: "", email: "", password: "" });
       setEditingId(null);
     } catch (error) {
       console.error("Erreur lors de l'enregistrement :", error);
@@ -45,7 +43,7 @@ const CalculatorCrud = () => {
   // Supprimer un utilisateur
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8082/api/calculators/${id}`);
+      await axios.delete(http://localhost:8082/api/calculators/${id});
       fetchCalculators();
     } catch (error) {
       console.error("Erreur lors de la suppression :", error);
@@ -54,7 +52,7 @@ const CalculatorCrud = () => {
 
   // Remplir le formulaire pour la modification
   const handleEdit = (calculator) => {
-    setForm({ username: calculator.username, email: calculator.email, telephone: calculator.telephone });
+    setForm({ username: calculator.username, email: calculator.email, password: calculator.password });
     setEditingId(calculator.id);
   };
 
@@ -79,8 +77,8 @@ const CalculatorCrud = () => {
         <input
           type="text"
           placeholder="Téléphone"
-          value={form.telephone}
-          onChange={(e) => setForm({ ...form, telephone: e.target.value })}
+          value={form.password}
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
         />
         <button className="crud-button submit-btn" type="submit">
           {editingId ? "Modifier" : "Ajouter"}
@@ -89,24 +87,24 @@ const CalculatorCrud = () => {
       <table className="crud-table">
         <thead>
           <tr>
-            <th>ID</th>
+
             <th>Nom d'utilisateur</th>
             <th>Email</th>
-            <th>Téléphone</th>
+
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {calculators.map((calc) => (
             <tr key={calc.id}>
-              <td>{calc.id}</td>
+
               <td>{calc.username}</td>
               <td>{calc.email}</td>
-              <td>{calc.telephone}</td>
+
               <td>
                 <button
                   className="crud-button view-btn"
-                  onClick={() => navigate(`/user/${calc.id}`)} // Redirige vers la page des polynômes
+                  onClick={() => navigate(/user/${calc.id})} // Redirige vers la page des polynômes
                 >
                   Voir Calculs
                 </button>
@@ -119,38 +117,6 @@ const CalculatorCrud = () => {
           ))}
         </tbody>
       </table>
-
-      {selectedUser && (
-        <div className="polynomial-section">
-          <h3>Calculs de l'utilisateur {}</h3>
-          {polynomials.length > 0 ? (
-            <table className="crud-table">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Expression Simplifiée</th>
-                  <th>Expression Factorisée</th>
-                  <th>Racines</th>
-                </tr>
-              </thead>
-              <tbody>
-  {polynomials.map((poly) => (
-    <tr key={poly.id}>
-      <td>{poly.id}</td>
-      <td>{poly.simplifiedExpression}</td>
-      <td>{poly.factoredExpression}</td>
-      <td>{poly.roots}</td> {/* Afficher les racines directement comme une chaîne */} 
-    </tr>
-  ))}
-</tbody>
-
-
-            </table>
-          ) : (
-            <p>Aucun calcul trouvé pour cet utilisateur.</p>
-          )}
-        </div>
-      )}
     </div>
   );
 };
