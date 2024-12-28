@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import pour la navigation
 import axios from "axios";
-import "../styles/CalculatorCrud.css"; // Importation du fichier CSS
+import "../styles/CalculatorCrud.css";
 
 const CalculatorCrud = () => {
   const [calculators, setCalculators] = useState([]);
-  const [form, setForm] = useState({ username: "", email: "", telephone: "" });
+  const [form, setForm] = useState({ username: "", email: "",password: "" });
   const [editingId, setEditingId] = useState(null);
+  const navigate = useNavigate(); // Utilisez useNavigate pour rediriger
 
-  // Charger tous les calculateurs
+  // Charger tous les utilisateurs
   const fetchCalculators = async () => {
     try {
       const response = await axios.get("http://localhost:8082/api/calculators");
@@ -21,7 +23,7 @@ const CalculatorCrud = () => {
     fetchCalculators();
   }, []);
 
-  // Ajouter ou mettre à jour un calculateur
+  // Ajouter ou mettre à jour un utilisateur
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -31,14 +33,14 @@ const CalculatorCrud = () => {
         await axios.post("http://localhost:8082/api/calculators/register", form);
       }
       fetchCalculators();
-      setForm({ username: "", email: "", telephone: "" });
+      setForm({ username: "", email: "", password: "" });
       setEditingId(null);
     } catch (error) {
       console.error("Erreur lors de l'enregistrement :", error);
     }
   };
 
-  // Supprimer un calculateur
+  // Supprimer un utilisateur
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:8082/api/calculators/${id}`);
@@ -50,7 +52,7 @@ const CalculatorCrud = () => {
 
   // Remplir le formulaire pour la modification
   const handleEdit = (calculator) => {
-    setForm({ username: calculator.username, email: calculator.email, telephone: calculator.telephone });
+    setForm({ username: calculator.username, email: calculator.email, password: calculator.password });
     setEditingId(calculator.id);
   };
 
@@ -75,8 +77,8 @@ const CalculatorCrud = () => {
         <input
           type="text"
           placeholder="Téléphone"
-          value={form.telephone}
-          onChange={(e) => setForm({ ...form, telephone: e.target.value })}
+          value={form.password}
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
         />
         <button className="crud-button submit-btn" type="submit">
           {editingId ? "Modifier" : "Ajouter"}
@@ -85,27 +87,31 @@ const CalculatorCrud = () => {
       <table className="crud-table">
         <thead>
           <tr>
-            <th>ID</th>
+
             <th>Nom d'utilisateur</th>
             <th>Email</th>
-            <th>Téléphone</th>
+
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {calculators.map((calc) => (
             <tr key={calc.id}>
-              <td>{calc.id}</td>
+
               <td>{calc.username}</td>
               <td>{calc.email}</td>
-              <td>{calc.telephone}</td>
+
               <td>
+                <button
+                  className="crud-button view-btn"
+                  onClick={() => navigate(`/user/${calc.id}`)} // Redirige vers la page des polynômes
+                >
+                  Voir Calculs
+                </button>
                 <button className="crud-button edit-btn" onClick={() => handleEdit(calc)}>
                   Modifier
                 </button>
-                <button className="crud-button delete-btn" onClick={() => handleDelete(calc.id)}>
-                  Supprimer
-                </button>
+              
               </td>
             </tr>
           ))}
