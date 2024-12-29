@@ -3,7 +3,7 @@ name: Build and Analyze React App
 on:
   push:
     branches:
-      - main
+      - versionfinale
   pull_request:
     types: [opened, synchronize, reopened]
 
