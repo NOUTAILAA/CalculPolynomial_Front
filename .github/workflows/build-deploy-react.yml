@@ -1,0 +1,47 @@
+name: Build and Analyze React App
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  sonarqube:
+    name: SonarQube
+    runs-on: ubuntu-latest  # Tu peux aussi utiliser windows-latest
+    steps:
+      # 1. Checkout du code source
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Important pour permettre l'analyse complète de l'historique
+
+      # 2. Configurer Node.js (version 18)
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # 3. Installer les dépendances
+      - name: Install Dependencies
+        run: npm install
+
+      # 4. Construire l'application React
+      - name: Build React App
+        run: npm run build
+
+      # 5. Exécuter l'analyse SonarQube
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      # 6. Upload des artifacts (si nécessaire)
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: react-build
+          path: build/
