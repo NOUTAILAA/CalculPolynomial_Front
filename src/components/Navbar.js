@@ -11,7 +11,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   // Récupérer le token et userId depuis localStorage
-  const token = localStorage.getItem('token');
+  //const token = localStorage.getItem('token');
   const userId = localStorage.getItem('userId');
 
   const handleLogout = () => {
@@ -21,14 +21,14 @@ const Navbar = () => {
     navigate('/login');
   };
 
-  const handleProfileClick = () => {
+  /*const handleProfileClick = () => {
     // Rediriger l'utilisateur vers la page de son profil
     if (userId) {
       navigate(`/profile/${userId}`); // Assurez-vous que la route du profil existe
     } else {
       alert("Utilisateur non trouvé.");
     }
-  };
+  };*/
 
   return (
     <nav className="navbar">

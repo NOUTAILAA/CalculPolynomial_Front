@@ -41,14 +41,14 @@ const CalculatorCrud = () => {
   };
 
   // Supprimer un utilisateur
-  const handleDelete = async (id) => {
+  /*const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:8082/api/calculators/${id}`);
       fetchCalculators();
     } catch (error) {
       console.error("Erreur lors de la suppression :", error);
     }
-  };
+  };*/
 
   // Remplir le formulaire pour la modification
   const handleEdit = (calculator) => {
